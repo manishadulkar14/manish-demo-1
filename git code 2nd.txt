@@ -1,0 +1,9 @@
+SELECT department, employee_name, salary
+FROM (
+    SELECT department, 
+           employee_name, 
+           salary,
+           ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as rank
+    FROM employees
+) ranked_salaries
+WHERE rank = 3;
